@@ -22,11 +22,23 @@ class TodoContainer extends React.Component {
       }
     ]
   }
+  handleStatus = (id) => {
+    const name = this.state.list[id-1]
+    this.setState({
+      list: this.state.list.map(task => {
+        if(task.id === id) {
+          task.completed = !task.completed;
+        }
+        return task
+      })
+    })
+    console.log(name)
+  }
   render() {
     return (
       <>
       <Header />
-      <TodoList list={this.state.list} />
+      <TodoList list={this.state.list} handleStatusProp = {this.handleStatus} />
       </>
     )
   }
