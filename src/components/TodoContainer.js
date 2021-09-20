@@ -23,22 +23,34 @@ class TodoContainer extends React.Component {
     ]
   }
   handleStatus = (id) => {
-    const name = this.state.list[id-1]
-    this.setState({
-      list: this.state.list.map(task => {
-        if(task.id === id) {
-          task.completed = !task.completed;
-        }
-        return task
-      })
-    })
-    console.log(name)
+    this.setState(prevState => ({
+        list: prevState.list.map(task => {
+          if(task.id === id) {
+            return {
+              ...task,
+              completed: !task.completed,
+            } 
+          }
+          return task
+        }),
+    }))
   }
+
+  deleteBtn = id => {
+    this.setState(prevState =>({
+      list: [
+        ...prevState.list.filter(task => {
+          return task.id !== id;
+        })
+      ]
+    }))
+  }
+
   render() {
     return (
       <>
       <Header />
-      <TodoList list={this.state.list} handleStatusProp = {this.handleStatus} />
+      <TodoList list={this.state.list} handleStatusProp = {this.handleStatus} deleteTodoProp = { this.deleteBtn }/>
       </>
     )
   }
