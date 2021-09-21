@@ -6,24 +6,24 @@ import { v4 as uuidv4 } from "uuid";
 
 class TodoContainer extends React.Component {
   state = {
-    list: [
-      {
-        id: uuidv4(),
-        title: "Setup development environment",
-        completed: true
-      },
-      {
-        id: uuidv4(),
-        title: "Develop website and add content",
-        completed: false
-      },
-      {
-        id: uuidv4(),
-        title: "Deploy to live server",
-        completed: false
-      }
-    ]
+    list: []
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState !== this.state.list) {
+      localStorage.setItem('list', JSON.stringify(this.state.list))
+    }
+  }
+
+  componentDidMount() {
+    const initialList = JSON.parse(localStorage.getItem('list'));
+    if(initialList) {
+      this.setState({
+        list: initialList
+      });
+    }
+  }
+
   handleStatus = (id) => {
     this.setState(prevState => ({
         list: prevState.list.map(task => {
@@ -57,11 +57,9 @@ class TodoContainer extends React.Component {
     this.setState({
       list: [...this.state.list, newTodo]
     });
-    console.log(title);
   }
 
   setUpdate = (updatedTitle, id) => {
-    console.log(updatedTitle, id);
     this.setState({
       list: this.state.list.map(task => {
         if (task.id === id) {
