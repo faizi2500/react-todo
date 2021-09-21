@@ -60,13 +60,17 @@ class TodoContainer extends React.Component {
     console.log(title);
   }
 
+  setUpdate = (updatedTitle, id) => {
+    console.log(updatedTitle, id);
+  }
+
   render() {
     return (
       <div className="container">
         <div className ="inner">
           <Header />
           <InputTodo  addTodoItemProp = {this.    addTodoItem}/>
-          <TodoList list={this.state.list}    handleStatusProp = {this.handleStatus}    deleteTodoProp = { this.deleteBtn }/>
+          <TodoList list={this.state.list}    handleStatusProp = {this.handleStatus}  deleteTodoProp = { this.deleteBtn } setUpdate={this.setUpdate}/>
         </div>
       </div>
     )
