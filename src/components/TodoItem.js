@@ -2,16 +2,24 @@ import React from "react";
 import styles from "./TodoItem.module.css"
 
 class TodoItem extends React.Component {
-
   state = {
     editing: false,
   }
+  
   handleEditing = () => {
     this.setState({
       editing: true,
     })
     console.log('editable')
   }
+
+  handleUpdateDone = (event) => {
+    console.log(event.key);
+    if (event.key === 'Enter') {
+      this.setState({editing: false})
+    }
+  }
+
   render() 
   {
     const completedStyle = {
@@ -39,7 +47,7 @@ class TodoItem extends React.Component {
         </div>
         <input type= "text" style= {editMode} className = {styles.textInput} value={title} onChange={e =>{
           this.props.setUpdate(e.target.value, id);
-        }}/>
+        }} onKeyDown = {this.handleUpdateDone}/>
       </li>
     )
   }
