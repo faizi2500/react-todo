@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./TodoItem.module.css"
+import { FaTrash } from "react-icons/fa"
 
 class TodoItem extends React.Component {
   state = {
@@ -38,12 +39,16 @@ class TodoItem extends React.Component {
     }
     return (
       <li className="styles.item">
-        <div onDoubleClick = {this.handleEditing} style= {viewMode}>
+        <div onDoubleClick = {this.handleEditing} style= {{display: "flex", justifyContent: "space-between", viewMode}} className= "flex-box">
+        <div> 
         <input type="checkbox" className={styles.checkbox} checked = {completed } onChange={() => this.props.handleStatusProp(this.props.task.id)} />
         <span style={ completed ? completedStyle : null}>
           { title }
         </span>
-        <button onClick={() => this.props.deleteTodoProp( id )}>Delete</button>
+        </div>
+        <div>
+        <button onClick={() => this.props.deleteTodoProp( id )}><FaTrash style={{ color: "orangered", fontSize: "16px" }} /></button>
+        </div>
         </div>
         <input type= "text" style= {editMode} className = {styles.textInput} value={title} onChange={e =>{
           this.props.setUpdate(e.target.value, id);

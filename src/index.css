@@ -150,3 +150,8 @@ a {
 .main__content p {
   line-height: 25px;
 }
+
+li {
+  list-style: none;
+  margin-block: 1%;
+}
